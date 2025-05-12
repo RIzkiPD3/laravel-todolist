@@ -10,17 +10,13 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-medium text-gray-900">{{ __('Your Tasks') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900">{{ __('Your Recent Tasks') }}</h3>
                         <a href="{{ route('tasks.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                             {{ __('Create Task') }}
                         </a>
                     </div>
 
-                    @php
-                        $tasks = Auth::user()->tasks()->latest()->take(5)->get();
-                    @endphp
-
-                    @if($tasks->count() > 0)
+                    @if(count($tasks) > 0)
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
@@ -38,7 +34,7 @@
                                                 <div class="text-sm font-medium text-gray-900">{{ $task->title }}</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                                     @if($task->status === 'To Do') bg-yellow-100 text-yellow-800
                                                     @elseif($task->status === 'In Progress') bg-blue-100 text-blue-800
                                                     @elseif($task->status === 'Done') bg-green-100 text-green-800

@@ -16,6 +16,7 @@ class TagController extends Controller
         $tags = Tag::where('is_default', true)
             ->orWhere('user_id', Auth::id())
             ->get();
+
         return view('tags.index', compact('tags'));
     }
 
@@ -51,9 +52,7 @@ class TagController extends Controller
             'is_default' => false,
         ]);
 
-        // Check if the request has a 'redirect_to' parameter
         if ($request->has('redirect_to') && $request->redirect_to === 'create_task') {
-            // The session data will be available in the create task view
             return redirect()->route('tasks.create')
                 ->with('success', 'Tag created successfully.');
         }

@@ -3,18 +3,17 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Welcome page
 Route::get('/', function () {
-    return view('dashboard');
+    return view('welcome');
 });
 
 // Routes that require authentication
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('tasks', TaskController::class);
     Route::resource('tags', TagController::class);
