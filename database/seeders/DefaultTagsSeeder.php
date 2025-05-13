@@ -13,16 +13,19 @@ class DefaultTagsSeeder extends Seeder
     public function run(): void
     {
         $defaultTags = [
-            ['name' => 'Personal', 'is_default' => true],
-            ['name' => 'Work', 'is_default' => true],
-            ['name' => 'Shopping', 'is_default' => true],
-            ['name' => 'Health', 'is_default' => true],
-            ['name' => 'Education', 'is_default' => true],
-            ['name' => 'Finance', 'is_default' => true],
+            'Work',
+            'Personal',
+            'Urgent',
+            'Important',
+            'Low Priority',
         ];
 
-        foreach ($defaultTags as $tag) {
-            Tag::create($tag);
+        foreach ($defaultTags as $tagName) {
+            // Only create the tag if it doesn't already exist
+            Tag::firstOrCreate(
+                ['name' => $tagName, 'is_default' => true],
+                ['user_id' => null]
+            );
         }
     }
 }

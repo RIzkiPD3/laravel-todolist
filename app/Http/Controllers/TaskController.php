@@ -33,10 +33,10 @@ class TaskController extends Controller
         $taskTitle = session('task_title', '');
         $taskDescription = session('task_description', '');
         $taskDueDate = session('task_due_date', '');
-        $taskStatus = session('task_status', 'To Do    ');
+        $taskStatus = session('task_status', 'To Do');
 
         // Clear the session data
-        session()->forget(['task_title', 'task_description', 'task_due_date', 'task_sta    tus']);
+        session()->forget(['task_title', 'task_description', 'task_due_date', 'task_status']);
 
         return view('tasks.create', compact('tags', 'taskTitle', 'taskDescription', 'taskDueDate', 'taskStatus'));
     }

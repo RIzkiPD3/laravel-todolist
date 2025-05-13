@@ -11,6 +11,7 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // In the index method
     public function index()
     {
         $tags = Tag::where('is_default', true)
@@ -20,27 +21,13 @@ class TagController extends Controller
         return view('tags.index', compact('tags'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    // In the create method
+    public function create()
     {
-        // Store task form data in session if provided
-        if ($request->has('redirect_to') && $request->redirect_to === 'create_task') {
-            session([
-                'task_title' => $request->task_title,
-                'task_description' => $request->task_description,
-                'task_due_date' => $request->task_due_date,
-                'task_status' => $request->task_status
-            ]);
-        }
-
         return view('tags.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // In the store method
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -52,6 +39,7 @@ class TagController extends Controller
             'is_default' => false,
         ]);
 
+        // Check if the request has a 'redirect_to' parameter
         if ($request->has('redirect_to') && $request->redirect_to === 'create_task') {
             return redirect()->route('tasks.create')
                 ->with('success', 'Tag created successfully.');
